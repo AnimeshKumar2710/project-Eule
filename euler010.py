@@ -1,17 +1,20 @@
-import sys
+limit = 1000001
+prime =[True for i in range (limit)]
 
-def isprime(num):
-    for i in range (2, int(num / 2) + 1):
-        if num % i == 0:
-            return False
-    return True
-
-t = int(input().strip())
-for a0 in range(t):
-    n = int(input().strip())
-    sum = 0
-    for i in range (2, n + 1):
-        if isprime(i):
-            sum += i
+p = 2
+while p * p < limit:
     
-    print(sum)
+    if prime[p] == True:
+        
+         for i in range (p * p,limit, p):
+            prime[i] = False
+    p += 1
+sums = [0 for i in range(limit)]
+for i in range (1, limit):
+    sums[i] += sums[i -1]
+    if prime[i]:
+        sums[i] += i
+t = int(input())
+for a in range (t):
+    n = int(input())
+    print(sums[n] - 1)
